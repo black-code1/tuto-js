@@ -7,30 +7,20 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Les variables</title>
     <script>
-
-        let a = 'Salut'
-        let b = a
-        const isMajeur = undefined
-        const notes = [
-            13,
-            14,
-            8,
-            9,
-            'hello',
-            [1, 2, 3]
-        ]
-        const notes2 = notes
-        const person = {
-            firstname: 'John',
-            lastname: 'Doe',
-            age: 24,
-            notes: [12, 14, 15],
-            job: {
-                name: 'Informaticien',
-                hours: 35
-            },
+        const a = prompt('Entrez un premier nombre')
+        const b = prompt('Entrez un second nombre')
+        const result = a * b
+        let signe
+        if (isNaN(result)) {
+            console.log(`Operation impossible: ${a} x ${b}`)
+        } else {
+            if (result > 0) {
+                signe = 'positif'
+            } else {
+                signe = 'negatif'
+            }
+            console.log(`${a} x ${b} = ${result} est ${signe}`)
         }
-
     </script>
 </head>
 <body>
