@@ -5,64 +5,112 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Les boucles</title>
+    <title>Les fonctions</title>
     <script>
-        // while
-        let i = 0;
-        while (i < 10) {
-            console.log('Bonjour ' + i)
-            i = i + 1
-        }
-
-        // for
-        const notes = [12, 13, 16, 8]
-        for (let i = 0; i < notes.length; i++) {
-            console.log(notes[i])
-        }
-
-        // for in apply same as with array and object
-        for (let i in notes) {
-            // output indexes
-            console.log(i)
-            //output value
-            console.log(notes[i])
-        }
-
-        // for of works with array and not object because object is not iterable
-        for (let note of notes) {
-            // output array value
-            console.log(note)
-        }
-
-        // exercise 1
-        let chiffre = prompt('Entrez un nombre')
-        if (chiffre > 0 || chiffre < 0) {
-            console.log("Le nombre n'est pas entre 0 et 10")
-        } else {
-            // while
-            while (chiffre >= 0) {
-                console.log(chiffre)
-                chiffre--
+        const canDrive = function (age, pays) {
+            // return (age > 18 && pays === 'FR') ||
+            //     (age > 16 && pays === 'US');
+            if (
+                (age > 18 && pays === 'FR') ||
+                (age > 16 && pays === 'US')
+            ) {
+                return true
             }
-            // for
-            for (let i = chiffre; i >= 0; chiffre--) {
-                console.log(i)
+            return false
+        }
+        console.log(canDrive(19, 'FR'))
+
+        let notes = [12, 13, 14]
+
+        function upNotes (notes) {
+            notes[0]++
+        }
+        upNotes(notes)
+        console.log(notes)
+
+        // function maFonction () {
+        //     // Window object
+        //     console.log(this)
+        // }
+        // maFonction.call(3)
+
+        const a = {
+            firstname: 'John',
+            lastname: 'Doe',
+            fullname: function () {
+                // this points to "a" object
+                console.log(`${this.firstname} ${this.lastname}`)
             }
         }
 
-        // exercise 2
-        let guess = 8
-        while (chiffre !== guess) {
-            chiffre = prompt('Votre chiffre') * 1
-            if (chiffre < guess) {
-                console.log('Plus')
-            } else if (chiffre > guess) {
-                console.log('Moins')
-            } else {
+        // arrow function
+        const maFonction = (param1, param2) => {
+            // this always points to Window object event when you call this
+            console.log(param1, param2, this)
+        }
+
+        const somme = (a, b) => a + b
+
+        const isPair = function (a, cb) {
+            if (a % 2 === 0) {
+                // fn here is a callback function
+                cb(a)
+            }
+        }
+
+        isPair(4, function (a) {
+            console.log('Mon nombre est pair ' +a)
+        })
+        maFonction.call(3, 1, 2)
+        a.fullname()
+        console.log('Hello'.toUpperCase())
+        console.log(somme(2, 3))
+
+        // exercise
+        // On cree un nombre entre 0 & 10
+        function getRandomInt(max) {
+            return Math.floor(Math.random() * (max + 1))
+        }
+        const solution = getRandomInt(10)
+        console.log(solution)
+        // 3 essaies pour deviner le mot
+        // isRight(n)
+        function isRight(n) {
+            return solution === n
+        }
+        // guess()
+        function guess() {
+            const number = prompt('Entrez un chiffre') * 1
+            return isRight(number)
+        }
+
+        for (i = 0; i < 3; i++) {
+            if (guess()) {
+                console.log('Bravo')
                 break
+            } else if (i === 2) {
+                console.log('Vous avez perdu')
             }
         }
-        console.log('Bravo ! vous avez devine')
+
+        // exercise
+        function isPremier(n) {
+            if (n < 2) {
+                return false
+            }
+            for (let i = n - 1; i > 1; i--) {
+                if (n % i === 0) {
+                    return false
+                }
+            }
+            return true
+        }
+        console.log('0', isPremier(0))
+        console.log('1', isPremier(1))
+        console.log('2', isPremier(2))
+        console.log('3', isPremier(3))
+        console.log('11', isPremier(11))
+        console.log('12', isPremier(12))
     </script>
 </head>
 <body>
