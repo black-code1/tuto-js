@@ -5,15 +5,64 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Les variables</title>
+    <title>Les boucles</title>
     <script>
-        let age = 18
-        let suffix = 18
-        if (age >= 18) {
-            let suffix = 4
-            console.log(suffix)
+        // while
+        let i = 0;
+        while (i < 10) {
+            console.log('Bonjour ' + i)
+            i = i + 1
         }
-        console.log(suffix)
+
+        // for
+        const notes = [12, 13, 16, 8]
+        for (let i = 0; i < notes.length; i++) {
+            console.log(notes[i])
+        }
+
+        // for in apply same as with array and object
+        for (let i in notes) {
+            // output indexes
+            console.log(i)
+            //output value
+            console.log(notes[i])
+        }
+
+        // for of works with array and not object because object is not iterable
+        for (let note of notes) {
+            // output array value
+            console.log(note)
+        }
+
+        // exercise 1
+        let chiffre = prompt('Entrez un nombre')
+        if (chiffre > 0 || chiffre < 0) {
+            console.log("Le nombre n'est pas entre 0 et 10")
+        } else {
+            // while
+            while (chiffre >= 0) {
+                console.log(chiffre)
+                chiffre--
+            }
+            // for
+            for (let i = chiffre; i >= 0; chiffre--) {
+                console.log(i)
+            }
+        }
+
+        // exercise 2
+        let guess = 8
+        while (chiffre !== guess) {
+            chiffre = prompt('Votre chiffre') * 1
+            if (chiffre < guess) {
+                console.log('Plus')
+            } else if (chiffre > guess) {
+                console.log('Moins')
+            } else {
+                break
+            }
+        }
+        console.log('Bravo ! vous avez devine')
     </script>
 </head>
 <body>
