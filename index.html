@@ -7,70 +7,92 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Les classes</title>
     <script>
+        // Exercise 1
+        // class Rectangle {
+        //     constructor(width, height) {
+        //         this.width = width
+        //         this.height = height
+        //     }
+        //
+        //     get perimeter () {
+        //         return (this.width + this.height) * 2
+        //     }
+        //
+        //     get isValid () {
+        //         return this.width > 0 && this.height > 0
+        //     }
+        //
+        //     isBiggerThan (shape) {
+        //         return this.perimeter > shape.perimeter
+        //     }
+        // }
+        //
+        // class Square extends Rectangle{
+        //     constructor(width) {
+        //         super(width, width);
+        //     }
+        // }
+        // const r = new Rectangle(10, 20);
+        // console.log(r.perimeter)
+        // console.log(r.isValid)
+        // const r2 = new Rectangle(-10, 20)
+        // console.log(r2.isValid)
+        // const c = new Square(10)
+        // console.log(c.perimeter)
+        // console.log(c.isBiggerThan(r))
 
-        const moyenne = (notes) => {
-            let sum = 0
-            for (let note of notes) {
-                sum += note
+        // Exercise 2
+        class Book {
+            #page = 1
+            constructor(title, pages) {
+                this.title = title
+                this.pages = pages
             }
-            return sum / notes.length
-        }
-        // str >> String.prototype >> Object.prototype
-        class Student {
-            ecole = 'Jules ferry'
-            _notes = []
-            // #notes = []
-
-            constructor(firstname, lastname) {
-                this.firstname = firstname
-                this.lastname = lastname
+            get page () {
+                return this.#page
             }
-
-            set notes (v) {
-                if (Array.isArray(v)) {
-                this._notes = v
-                    // this.#notes = v
+            nextPage () {
+                if (this.#page < this.pages) {
+                    this.#page++
                 }
             }
-            get name () {
-                return `${this.firstname} ${this.lastname}`
-            }
-
-            get notes () {
-                console.log(this._notes)
-            }
-            canPass () {
-                return moyenne(this._notes) >= Student.moyenne
-                // return moyenne(this.#notes) >= Student.moyenne
-            }
-            //  => Student.moyenne = 10
-            static moyenne = 10
-
-            // => Student.hello = () => {console.log('Bonjour')}
-            // static hello () {
-            //     console.log('Bonjour')
-            // }
-        }
-        class SuperStudent extends Student {
-            // #notes = []
-            _notes = []
-            constructor(firstname, lastname, notes) {
-                super(firstname, lastname);
-                this._notes = notes
-                // this.#notes = notes
-
-            }
-            get name () {
-                return 'Super ' + super.name
-            }
-            canPass() {
-                return super.canPass()
+            close () {
+                this.#page = 1
             }
         }
-        const john = new SuperStudent('John', 'Doe', [0, 10, 8])
-        const jane = new Student('Jane', 'Doe')
-        jane.notes = [15, 18, 19]
-        console.log(john.canPass())
+
+        class Library {
+            #books = []
+            addBook(book) {
+                this.#books.push(book)
+            }
+
+            addBooks(books) {
+                books.forEach(book => this.addBook(book))
+                // books.forEach(this.addBook, this)
+
+            }
+
+            findBooksByLetter(letter) {
+                return this.#books.filter((book) => book.title[0].toLowerCase() === letter.toLowerCase())
+            }
+        }
+
+        const b = new Book('Seigneur des anneaux', 200)
+        console.log(b.page)
+        b.nextPage()
+        console.log(b.page)
+        b.close()
+        console.log(b.page)
+
+        const l = new Library()
+        l.addBook(b)
+        l.addBooks([
+            new Book('Ready player one', 100),
+            new Book('Oui-Oui', 10),
+            new Book('Sillage', 50)
+        ])
+        console.log(l.findBooksByLetter('S')) // Utiliser filter pour ce cas
     </script>
 </head>
 <body>
