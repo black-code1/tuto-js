@@ -7,92 +7,59 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Les classes</title>
     <script>
-        // Exercise 1
-        // class Rectangle {
-        //     constructor(width, height) {
-        //         this.width = width
-        //         this.height = height
-        //     }
-        //
-        //     get perimeter () {
-        //         return (this.width + this.height) * 2
-        //     }
-        //
-        //     get isValid () {
-        //         return this.width > 0 && this.height > 0
-        //     }
-        //
-        //     isBiggerThan (shape) {
-        //         return this.perimeter > shape.perimeter
-        //     }
-        // }
-        //
-        // class Square extends Rectangle{
-        //     constructor(width) {
-        //         super(width, width);
-        //     }
-        // }
-        // const r = new Rectangle(10, 20);
-        // console.log(r.perimeter)
-        // console.log(r.isValid)
-        // const r2 = new Rectangle(-10, 20)
-        // console.log(r2.isValid)
-        // const c = new Square(10)
-        // console.log(c.perimeter)
-        // console.log(c.isBiggerThan(r))
-
-        // Exercise 2
-        class Book {
-            #page = 1
-            constructor(title, pages) {
-                this.title = title
-                this.pages = pages
-            }
-            get page () {
-                return this.#page
-            }
-            nextPage () {
-                if (this.#page < this.pages) {
-                    this.#page++
+        class Rectangle {
+            constructor(width, height) {
+                if (width <= 0 || height <= 0) {
+                    throw new Error("Impossible d'avoir une forme avec des dimensions negatives")
                 }
-            }
-            close () {
-                this.#page = 1
-            }
-        }
-
-        class Library {
-            #books = []
-            addBook(book) {
-                this.#books.push(book)
+                this.width = width
+                this.height = height
             }
 
-            addBooks(books) {
-                books.forEach(book => this.addBook(book))
-                // books.forEach(this.addBook, this)
-
+            get perimeter () {
+                return (this.width + this.height) * 2
             }
 
-            findBooksByLetter(letter) {
-                return this.#books.filter((book) => book.title[0].toLowerCase() === letter.toLowerCase())
+            get isValid () {
+                return this.width > 0 && this.height > 0
+            }
+
+            isBiggerThan (shape) {
+                return this.perimeter > shape.perimeter
             }
         }
 
-        const b = new Book('Seigneur des anneaux', 200)
-        console.log(b.page)
-        b.nextPage()
-        console.log(b.page)
-        b.close()
-        console.log(b.page)
+        class Square extends Rectangle{
+            constructor(width) {
+                super(width, width);
+            }
+        }
 
-        const l = new Library()
-        l.addBook(b)
-        l.addBooks([
-            new Book('Ready player one', 100),
-            new Book('Oui-Oui', 10),
-            new Book('Sillage', 50)
-        ])
-        console.log(l.findBooksByLetter('S')) // Utiliser filter pour ce cas
+        class PromptError extends Error {
+
+        }
+        function promptRectangle() {
+            try {
+                const width = parseInt(prompt('Largeur'), 10)
+                const height = parseInt(prompt('hauteur'), 10)
+                const r = new Rectangle(width, height)
+                return r
+            } catch (e) {
+                throw new PromptError('Entree utilisateur invalide', {cause: {code: 404, uri: 'https://grafikart.fr'}})
+            }
+        }
+
+        try{
+            promptRectangle()
+        } catch (e) {
+            if (e instanceof PromptError) {
+                console.log('PromptError')
+            } else {
+                console.log('erreur classique')
+            }
+            console.log(e.message, {e})
+        }
+
     </script>
 </head>
 <body>
