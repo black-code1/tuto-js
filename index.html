@@ -5,61 +5,38 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Les classes</title>
+    <title>Les fonctions usuelles</title>
     <script>
-        class Rectangle {
-            constructor(width, height) {
-                if (width <= 0 || height <= 0) {
-                    throw new Error("Impossible d'avoir une forme avec des dimensions negatives")
-                }
-                this.width = width
-                this.height = height
-            }
+        // Array methods
+       const notes = [12, 17, 18, 9, 7]
+       const lastElements = notes.at(-1)
+       const goodNotes = notes.filter(note => note > 10)
+       notes.forEach((note, index) => `${note}, ${index}`)
 
-            get perimeter () {
-                return (this.width + this.height) * 2
-            }
+       const persons = [
+           {firstname: 'John', lastname: 'Doe'},
+           {firstname: 'Jane', lastname: 'Doe'},
+           {firstname: 'Marc', lastname: 'Doe'},
+           {firstname: 'Manon', lastname: 'Doe'}
+       ]
 
-            get isValid () {
-                return this.width > 0 && this.height > 0
-            }
+       const mapPersons = persons.map(people => `${people.firstname} ${people.lastname}`).join('\n')
+       const sumNotes = notes.reduce((acc, note) => acc + note, 0)
 
-            isBiggerThan (shape) {
-                return this.perimeter > shape.perimeter
-            }
+        // Object methods
+        const person = {firstname: 'John', lastname: 'Doe'}
+        const objectTransform = Object.entries(person)
+        const compareObject = Object.is(NaN, NaN)
+        const personKeys = Object.keys(person)
+        const personValues = Object.values(person)
+
+        // Function.prototype.apply()
+        function hello () {
+           console.log(this)
         }
 
-        class Square extends Rectangle{
-            constructor(width) {
-                super(width, width);
-            }
-        }
-
-        class PromptError extends Error {
-
-        }
-        function promptRectangle() {
-            try {
-                const width = parseInt(prompt('Largeur'), 10)
-                const height = parseInt(prompt('hauteur'), 10)
-                const r = new Rectangle(width, height)
-                return r
-            } catch (e) {
-                throw new PromptError('Entree utilisateur invalide', {cause: {code: 404, uri: 'https://grafikart.fr'}})
-            }
-        }
-
-        try{
-            promptRectangle()
-        } catch (e) {
-            if (e instanceof PromptError) {
-                console.log('PromptError')
-            } else {
-                console.log('erreur classique')
-            }
-            console.log(e.message, {e})
-        }
-
+        const hello2 = hello.bind(3)
+        hello2()
     </script>
 </head>
 <body>
