@@ -5,44 +5,29 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Appel HTTP avec fetch()
-    </title>
-    <script>
-        // async function fetchUsers() {
-        //     // const r = await fetch('https://jsonplaceholder.typicode.com/users', {
-        //     //     method: 'GET',
-        //     //     headers: {
-        //     //         "Accept": "application/json" // What i intend to receive
-        //     //     }
-        //     // })
-        //     const r = await fetch('https://jsonplaceholder.typicode.com/posts', {
-        //         method: 'POST',
-        //         headers: {
-        //             "Accept": "application/json", // What i intend to receive
-        //             "Content-Type": "application/json" // What the server is waiting to receive
-        //         },
-        //         body: JSON.stringify({title: 'Mon premier titre'})
-        //     })
-        //     console.log(r.headers.get('Content-Type'))
-        //     if (r.ok === true) {
-        //         return r.json()
-        //     }
-        //     throw new Error('Impossible de contacter le serveur')
-        // }
-        //
-        // fetchUsers().then(users => console.log(users))
+    <title>Les modules</title>
+    <script type="module">
+        // import {sum} from "./array.js";
+        // import {sum, default as hello1} from "./array.js";
+        // import {sum, hello} from "./array.js";
+        // import hello from "./hello.js";
+        // import {sum as somme, hello} from "./array.js";
+        // import * as A from './array.js'
+        // console.log(sum([12, 23, 19]))
+        // console.log(hello())
+        // console.log(hello1())
+        // console.log(somme([12, 23, 19]))
+        // console.log(A.hello())
+        // console.log(import('./array.js').then(({hello}) => hello())) // import in an asynchronous way
 
-
-        const a = new AbortController()
-        Promise.race([
-            fetch('https://jsonplaceholder.typicode.com/posts/?_limit=5&_delay=2000',
-                {signal: a.signal}),
-            fetch('https://jsonplaceholder.typicode.com/users/?_limit=3', {signal: a.signal})
-        ]).then(r => r.json()).then(body => {
-            a.abort()
-            console.log(body)
-        })
-
+        // Top level await
+        // const {hello} = await import('./array.js')
+        // hello()
+        (async function () {
+            const {hello} = await import('./array.js')
+            hello()
+        })()
+        // Immediately invoke function
     </script>
 </head>
 <body>
