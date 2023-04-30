@@ -5,57 +5,58 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Le sucre syntaxique</title>
+    <title>Les timers</title>
     <script>
-      let i = 0
-      const double = n => n * 2
-      const a = 3
-      const b = a || 5 // a will be use if truthy
-      function fn1() {
-          return true
-      }
-      function fn2() {
-          console.log('fn2()')
-          return false
-      }
+        // function wait(duration) {
+        //     const t = Date.now() // timestamp from 1st jabuary 1970 till now
+        //     while (Date.now() - t < duration) {
+        //
+        //     }
+        // }
+        // console.log('Bonjour')
+        // // wait(1000)
+        // setTimeout(() => {
+        //     console.log('Les gens')
+        // }, 1000)
+        // console.log('au revoir')
+        //
+        // const t = setInterval(() => {
+        //     console.log('les gens')
+        // }, 1000)
+        // console.log(t)
 
-      const fn = fn1() && fn2() // execute fn2() if fn1() returns true
-      let c
-      const d = c ?? 7 // if c not null and not undefined then use c
-      // a ??= 3 assign 3 to a if a is null or undefined
-      // a ||= 3 assign 3 to a if a is falsy
-      // console.log(d)
-      // console.log(i++)
-      // console.log(i)
-      // console.log(double(3))
-      // console.log(b)
-      const person = {firstname: 'John'}
-      const jobName = person.job?.name // calls name property if job property is defined
-      const notes = [12, 17, 18]
-      const [premiereNote, secondNote] = notes
-      const [note1, ...autreNote] = notes
-      const reverseNotes = [...notes].reverse()
-      console.log(reverseNotes)
-      console.log(note1, autreNote)
+        // TP
+        // let i = 0
+        // const t = setInterval(() => {
+        //     i++
+        //     console.log('bonjour')
+        //     if (i >= 5) {
+        //         clearInterval(t)
+        //     }
+        // }, 1000)
 
-      // Object
-      const {firstname, ...rest} = {
-          firstname: 'John',
-          lastname: 'Doe',
-          age: 18
-      }
+        // function decompte(n) {
+        //     console.log(n)
+        //     const t = setInterval(() => {
+        //         n--
+        //         console.log(n)
+        //         if (n === 0) {
+        //             clearInterval(t)
+        //         }
+        //     }, 1000)
+        // }
 
-      console.log(firstname, rest)
+        function decompte(n) {
+            console.log(n)
+            if (n === 0) {
+                return
+            }
+            setTimeout(() => {
+                decompte(n - 1)
+            }, 1000)
+        }
 
-      function canDrive({age, pays, region}) {
-          return true
-      }
-      canDrive({age: 18, pays: 'FR', region: 'Texas'})
-      const newPerson = {...person, age: 18}
-      console.log(newPerson)
-      const age = 18
-      const message = age >= 18 ? 'Majeur' : 'Mineur'
-      console.log(message)
+        decompte(3)
     </script>
 </head>
 <body>
