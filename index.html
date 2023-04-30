@@ -5,38 +5,57 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Les fonctions usuelles</title>
+    <title>Le sucre syntaxique</title>
     <script>
-        // Array methods
-       const notes = [12, 17, 18, 9, 7]
-       const lastElements = notes.at(-1)
-       const goodNotes = notes.filter(note => note > 10)
-       notes.forEach((note, index) => `${note}, ${index}`)
+      let i = 0
+      const double = n => n * 2
+      const a = 3
+      const b = a || 5 // a will be use if truthy
+      function fn1() {
+          return true
+      }
+      function fn2() {
+          console.log('fn2()')
+          return false
+      }
 
-       const persons = [
-           {firstname: 'John', lastname: 'Doe'},
-           {firstname: 'Jane', lastname: 'Doe'},
-           {firstname: 'Marc', lastname: 'Doe'},
-           {firstname: 'Manon', lastname: 'Doe'}
-       ]
+      const fn = fn1() && fn2() // execute fn2() if fn1() returns true
+      let c
+      const d = c ?? 7 // if c not null and not undefined then use c
+      // a ??= 3 assign 3 to a if a is null or undefined
+      // a ||= 3 assign 3 to a if a is falsy
+      // console.log(d)
+      // console.log(i++)
+      // console.log(i)
+      // console.log(double(3))
+      // console.log(b)
+      const person = {firstname: 'John'}
+      const jobName = person.job?.name // calls name property if job property is defined
+      const notes = [12, 17, 18]
+      const [premiereNote, secondNote] = notes
+      const [note1, ...autreNote] = notes
+      const reverseNotes = [...notes].reverse()
+      console.log(reverseNotes)
+      console.log(note1, autreNote)
 
-       const mapPersons = persons.map(people => `${people.firstname} ${people.lastname}`).join('\n')
-       const sumNotes = notes.reduce((acc, note) => acc + note, 0)
+      // Object
+      const {firstname, ...rest} = {
+          firstname: 'John',
+          lastname: 'Doe',
+          age: 18
+      }
 
-        // Object methods
-        const person = {firstname: 'John', lastname: 'Doe'}
-        const objectTransform = Object.entries(person)
-        const compareObject = Object.is(NaN, NaN)
-        const personKeys = Object.keys(person)
-        const personValues = Object.values(person)
+      console.log(firstname, rest)
 
-        // Function.prototype.apply()
-        function hello () {
-           console.log(this)
-        }
-
-        const hello2 = hello.bind(3)
-        hello2()
+      function canDrive({age, pays, region}) {
+          return true
+      }
+      canDrive({age: 18, pays: 'FR', region: 'Texas'})
+      const newPerson = {...person, age: 18}
+      console.log(newPerson)
+      const age = 18
+      const message = age >= 18 ? 'Majeur' : 'Mineur'
+      console.log(message)
     </script>
 </head>
 <body>
